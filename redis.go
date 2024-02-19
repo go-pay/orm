@@ -28,15 +28,16 @@ type RedisConfig struct {
 
 func InitRedis(c *RedisConfig) (rd *redis.Client) {
 	opts := &redis.Options{
-		Addr:         c.Addrs[0],
-		OnConnect:    c.OnConnFunc,
-		Username:     c.Username,
-		Password:     c.Password,
-		DB:           c.DB,
-		PoolSize:     c.PoolSize,
-		ReadTimeout:  time.Duration(c.ReadTimeout),
-		WriteTimeout: time.Duration(c.WriteTimeout),
-		TLSConfig:    c.TLSCfg,
+		Addr:             c.Addrs[0],
+		OnConnect:        c.OnConnFunc,
+		Username:         c.Username,
+		Password:         c.Password,
+		DB:               c.DB,
+		PoolSize:         c.PoolSize,
+		ReadTimeout:      time.Duration(c.ReadTimeout),
+		WriteTimeout:     time.Duration(c.WriteTimeout),
+		TLSConfig:        c.TLSCfg,
+		DisableIndentity: true,
 	}
 	rd = redis.NewClient(opts)
 	_, err := rd.Ping(context.Background()).Result()
@@ -48,14 +49,15 @@ func InitRedis(c *RedisConfig) (rd *redis.Client) {
 
 func InitRedisCluster(c *RedisConfig) (rc *redis.ClusterClient) {
 	opts := &redis.ClusterOptions{
-		Addrs:        c.Addrs,
-		OnConnect:    c.OnConnFunc,
-		Username:     c.Username,
-		Password:     c.Password,
-		PoolSize:     c.PoolSize,
-		ReadTimeout:  time.Duration(c.ReadTimeout),
-		WriteTimeout: time.Duration(c.WriteTimeout),
-		TLSConfig:    c.TLSCfg,
+		Addrs:            c.Addrs,
+		OnConnect:        c.OnConnFunc,
+		Username:         c.Username,
+		Password:         c.Password,
+		PoolSize:         c.PoolSize,
+		ReadTimeout:      time.Duration(c.ReadTimeout),
+		WriteTimeout:     time.Duration(c.WriteTimeout),
+		TLSConfig:        c.TLSCfg,
+		DisableIndentity: true,
 	}
 	rc = redis.NewClusterClient(opts)
 	_, err := rc.Ping(context.Background()).Result()
