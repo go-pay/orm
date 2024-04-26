@@ -6,7 +6,7 @@ require (
 	github.com/go-pay/xtime v0.0.2
 	github.com/redis/go-redis/v9 v9.5.1
 	gorm.io/driver/mysql v1.5.6
-	gorm.io/gorm v1.25.9
+	gorm.io/gorm v1.25.10
 )
 
 require (
