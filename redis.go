@@ -19,6 +19,7 @@ type RedisConfig struct {
 	ReadTimeout  xtime.Duration                                  `json:"read_timeout" yaml:"read_timeout" toml:"read_timeout"`
 	WriteTimeout xtime.Duration                                  `json:"write_timeout" yaml:"write_timeout" toml:"write_timeout"`
 	PoolSize     int                                             `json:"pool_size" yaml:"pool_size" toml:"pool_size"`
+	MinIdleConn  int                                             `json:"min_idle_conn" yaml:"min_idle_conn" toml:"min_idle_conn"`
 	MaxIdleConn  int                                             `json:"max_idle_conn" yaml:"max_idle_conn" toml:"max_idle_conn"`
 	TLS          bool                                            `json:"tls" yaml:"tls" toml:"tls"`
 	TLSCfg       *tls.Config                                     `json:"-" yaml:"-" toml:"-"`
@@ -36,9 +37,12 @@ func InitRedis(c *RedisConfig) (rd *redis.Client) {
 		PoolSize:     c.PoolSize,
 		ReadTimeout:  time.Duration(c.ReadTimeout),
 		WriteTimeout: time.Duration(c.WriteTimeout),
+		MinIdleConns: c.MinIdleConn,
+		MaxIdleConns: c.MaxIdleConn,
 		TLSConfig:    c.TLSCfg,
 		//DisableIndentity: true,
 	}
+
 	rd = redis.NewClient(opts)
 	_, err := rd.Ping(context.Background()).Result()
 	if err != nil {
