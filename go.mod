@@ -4,7 +4,7 @@ go 1.22
 
 require (
 	github.com/go-pay/xtime v0.0.2
-	github.com/redis/go-redis/v9 v9.6.2
+	github.com/redis/go-redis/v9 v9.7.0
 	gorm.io/driver/mysql v1.5.7
 	gorm.io/gorm v1.25.12
 )
